@@ -118,7 +118,7 @@ ragenv/Lib/site-packages/torch/lib/torch_cpu.dll
 .pdm.toml
 .pdm-python
 .pdm-build/
-
+.vs
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
 
