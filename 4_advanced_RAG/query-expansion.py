@@ -19,8 +19,8 @@ class QueryExpander:
     def __init__(self, api_key: str = None):
         """Initialize the QueryExpander with necessary components."""
         # Set up OpenAI API key
-        if api_key:
-            os.environ["OPENAI_API_KEY"] = api_key
+        if api_key== None:
+            api_key=os.environ["OPENAI_API_KEY"] 
         elif not os.getenv("OPENAI_API_KEY"):
             raise ValueError("No API key provided. Set OPENAI_API_KEY environment variable or pass key to constructor.")
         

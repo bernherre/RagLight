@@ -4,6 +4,10 @@ python3.11 -m venv myenv
 
 source myenv/bin/activate
 
+#windows 
+
+.\myenv\Scripts\activate 
+
 pip install requests beautifulsoup4 langchain langchain-openai faiss-cpu numpy lxml openai
 
 pip install --upgrade pip
