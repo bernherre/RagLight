@@ -1,11 +1,10 @@
 # Load a base LLM (e.g., GPT-2 or LLaMA)
 
-from langchain_community.chat_models import ChatOllama
+from langchain_core.output_parsers import StrOutputParser
+from langchain_ollama import ChatOllama
 from langchain.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
 from langchain_core.globals import set_llm_cache
 from langchain_core.caches import InMemoryCache
-
 
 
 
@@ -17,24 +16,19 @@ chat_model = ChatOllama(model="llama3.2:latest")  # Replace with your Ollama mod
 
 
 # Step 2: Define a prompt for query expansion
-expansion_prompt = ChatPromptTemplate.from_template(
-        """
-        Return please multiple paraphrased variations, only the questions.
-        
-        Args:
-            {question} (str): The original question to expand
-            
-        """
-)
+promp_template = ChatPromptTemplate([
+                (
+                         "system",
+                         "you are a kind of 5 years with a deeper understanding on physics and mathematics. And you explein the concept any in a simple way with similitudes for kids."
+                ),
+                (
+                        "user",
+                        "List[str]: List of paraphrased variations of the question : {question}" 
 
-"""Returns:
-         List[str]: List of paraphrased variations of the question
- """
+                )
+                ])
 # Step 3: Create a chain for query expansion
-expansion_chain = LLMChain(
-    llm=chat_model,
-    prompt=expansion_prompt,
-)
+expansion_chain = promp_template | chat_model| StrOutputParser()
 
 # Step 4: Define a function to refine the expanded query
 def refine_expansion(output: str) -> str:
@@ -51,7 +45,7 @@ def refine_expansion(output: str) -> str:
 def query_expansion_pipeline(query: str) -> str:
     # Generate expanded terms
     
-    expansion_output = expansion_chain.run(query)
+    expansion_output = expansion_chain.invoke(query)
     # Refine the output
     refined_expansion = refine_expansion(expansion_output)
     return  refined_expansion
