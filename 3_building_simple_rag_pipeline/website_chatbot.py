@@ -12,7 +12,8 @@ import time
 import random
 import tempfile
 from langchain_community.document_loaders import BSHTMLLoader
-from langchain.memory import ConversationBufferMemory
+from langchain.memory import ConversationBufferMemory 
+from dotenv import load_dotenv
 
 # Configuration variables
 CHUNK_SIZE = 300
@@ -22,6 +23,8 @@ MODEL_NAME = "gpt-4o-mini"
 TEMPERATURE = 0.1
 
 # Set up OpenAI API key
+load_dotenv()
+
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     OPENAI_API_KEY = input("Please enter your OpenAI API key: ")
