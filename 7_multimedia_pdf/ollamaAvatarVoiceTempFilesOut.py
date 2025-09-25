@@ -108,7 +108,7 @@ def main():
                     myobj = gTTS(text=variation, lang=language, slow=False)
 
                     fp=bytesIO()
-                    myobj.write_to_fp(fp)
+                    myobj.write_to_fp(fp)thxt
                     fp.seek(0)
                     
                     # Playing the converted file
